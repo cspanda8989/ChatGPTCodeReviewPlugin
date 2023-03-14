@@ -1,18 +1,27 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
     <id>com.github.cspanda8989.chatgptcodereviewplugin</id>
-    <name>ChatGPTCodeReviewPlugin Template</name>
+    <name>ChatGPTCodeReviewPlugin</name>
     <vendor>cspanda8989</vendor>
 
     <depends>com.intellij.modules.platform</depends>
 
     <resource-bundle>messages.MyBundle</resource-bundle>
 
-    <extensions defaultExtensionNs="com.intellij">
-        <toolWindow factoryClass="com.github.cspanda8989.chatgptcodereviewplugin.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
-    </extensions>
 
-    <applicationListeners>
-        <listener class="com.github.cspanda8989.chatgptcodereviewplugin.listeners.MyFrameStateListener" topic="com.intellij.ide.FrameStateListener"/>
-    </applicationListeners>
+    <actions>
+        <group id="CodeReview" text="CodeReview" description="CodeReview Group">
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+            <action id="AddCodeReview" class="com.github.cspanda8989.chatgptcodereviewplugin.action.CodeReviewAction"
+                    text="添加CodeReview" description="Adds selected code to CodeReview."/>
+        </group>
+    </actions>
+
+    <!--    <extensions defaultExtensionNs="com.intellij">-->
+    <!--        <toolWindow factoryClass="com.github.cspanda8989.chatgptcodereviewplugin.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>-->
+    <!--    </extensions>-->
+
+    <!--    <applicationListeners>-->
+    <!--        <listener class="com.github.cspanda8989.chatgptcodereviewplugin.listeners.MyFrameStateListener" topic="com.intellij.ide.FrameStateListener"/>-->
+    <!--    </applicationListeners>-->
 </idea-plugin>

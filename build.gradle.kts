@@ -19,8 +19,14 @@ plugins {
     id("org.jetbrains.kotlinx.kover") version "0.6.1"
 }
 
+
 group = properties("pluginGroup").get()
 version = properties("pluginVersion").get()
+
+dependencies {
+    implementation("com.unfbx:chatgpt-java:1.0.5")
+}
+
 
 // Configure project's dependencies
 repositories {
