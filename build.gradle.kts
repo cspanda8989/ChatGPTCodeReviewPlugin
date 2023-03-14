@@ -24,7 +24,7 @@ group = properties("pluginGroup").get()
 version = properties("pluginVersion").get()
 
 dependencies {
-    implementation("com.unfbx:chatgpt-java:1.0.5")
+    implementation("com.theokanning.openai-gpt3-java:service:0.11.0")
 }
 
 

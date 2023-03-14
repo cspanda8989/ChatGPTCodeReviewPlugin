@@ -1,25 +1,32 @@
 package com.github.cspanda8989.chatgptcodereviewplugin.action
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
-import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.command.WriteCommandAction
 import com.intellij.openapi.editor.Document
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.SelectionModel
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.Messages
-import com.unfbx.chatgpt.OpenAiClient
+import com.intellij.psi.codeStyle.arrangement.std.StdArrangementSettingsToken.token
+import com.theokanning.openai.OpenAiApi
+import com.theokanning.openai.completion.chat.ChatCompletionRequest
+import com.theokanning.openai.completion.chat.ChatMessage
+import com.theokanning.openai.service.OpenAiService
+import com.theokanning.openai.service.OpenAiService.*
 import com.unfbx.chatgpt.entity.chat.Message
-import org.jdom.filter2.Filters.document
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import java.net.InetSocketAddress
 import java.net.Proxy
+import java.time.Duration
 import java.util.Arrays.asList
 
 
 class CodeReviewAction : AnAction() {
     var PRESET_PROMPT_CODE_REVIEW_ZH =
-        "你的职责是架构师，评审以下代码，并列出待优化列表，格式为方法名：代办项。如果代码没有问题，就说无需优化。线程不安全、不符合设计模式、拼写错误、bug、复杂度都属于优化问题"
+        "你是一个高级程序员，专业严格认真且真诚，请评审以下代码，并列出待优化列表，写明代办。\n任何格式错误、并发隐患、非线程安全、不符合开发习惯、不符合设计模式、拼写错误、bug、复杂度都属于优化问题。\n无需举例。\n代码非常好无优化项时就说:GoodJob!"
 
 
     override fun actionPerformed(event: AnActionEvent) {
@@ -44,24 +51,26 @@ class CodeReviewAction : AnAction() {
                         return
                     }
 
-                    //val service = OpenAiService(apiKey)
+                    var systemChatMessage = ChatMessage("system", PRESET_PROMPT_CODE_REVIEW_ZH)
+                    var inputPromptMessage = ChatMessage("user", "审核：" + selectedText)
 
-                    var systemChatMessage = Message("system", PRESET_PROMPT_CODE_REVIEW_ZH)
-                    var inputPromptMessage = Message("user", selectedText)
 
                     val proxy = Proxy(Proxy.Type.HTTP, InetSocketAddress("127.0.0.1", 7890))
-
-                    val service = OpenAiClient.builder()
-                        .apiKey(apiKey)
-                        .connectTimeout(50)
-                        .writeTimeout(50)
-                        .readTimeout(50)
+                    val mapper: ObjectMapper = defaultObjectMapper()
+                    val client: OkHttpClient = defaultClient(apiKey, Duration.ofMinutes(1))
+                        .newBuilder()
                         .proxy(proxy)
-                        .apiHost("https://api.openai.com/")
-                        .build();
+                        .build()
+                    val retrofit = defaultRetrofit(client, mapper)
 
+                    val api: OpenAiApi = retrofit.create(OpenAiApi::class.java)
+                    val service = OpenAiService(api)
 
-                    var ret = service.chatCompletion(asList(systemChatMessage, inputPromptMessage)).choices
+                    var req = ChatCompletionRequest.builder()
+                        .model("gpt-3.5-turbo")
+                        .messages(asList(systemChatMessage, inputPromptMessage))
+                        .build()
+                    var ret = service.createChatCompletion(req).choices
                     if (ret.size > 0) {
                         var result = ret[0]
                         var content = "    /*todo:" + result.message.content
