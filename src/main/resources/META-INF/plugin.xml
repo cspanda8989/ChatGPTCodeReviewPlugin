@@ -12,7 +12,10 @@
     <actions>
         <group id="CodeReview" text="CodeReview" description="CodeReview Group">
             <add-to-group group-id="EditorPopupMenu" anchor="last"/>
-            <action id="AddCodeReview" class="com.github.cspanda8989.chatgptcodereviewplugin.action.CodeReviewAction"
+            <action id="Add Code Review Comment"
+                    class="com.github.cspanda8989.chatgptcodereviewplugin.action.CodeReviewActionEn"
+                    text="Add CodeReview Comment" description="Adds selected code to CodeReview."/>
+            <action id="添加代码评审注释" class="com.github.cspanda8989.chatgptcodereviewplugin.action.CodeReviewAction"
                     text="Add CodeReview Comment" description="Adds selected code to CodeReview."/>
         </group>
     </actions>
