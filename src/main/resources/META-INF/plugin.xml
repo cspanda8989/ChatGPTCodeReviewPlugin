@@ -15,8 +15,9 @@
             <action id="Add Code Review Comment"
                     class="com.github.cspanda8989.chatgptcodereviewplugin.action.CodeReviewActionEn"
                     text="Add CodeReview Comment" description="Adds selected code to CodeReview."/>
-            <action id="添加代码评审注释" class="com.github.cspanda8989.chatgptcodereviewplugin.action.CodeReviewAction"
-                    text="Add CodeReview Comment" description="Adds selected code to CodeReview."/>
+            <action id="Add CN Code Review Comment"
+                    class="com.github.cspanda8989.chatgptcodereviewplugin.action.CodeReviewAction"
+                    text="添加代码评审注释" description="Adds selected code to CodeReview."/>
         </group>
     </actions>
 </idea-plugin>
