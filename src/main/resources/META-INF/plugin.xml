@@ -17,7 +17,16 @@
                     text="Add CodeReview Comment" description="Adds selected code to CodeReview."/>
             <action id="Add CN Code Review Comment"
                     class="com.github.cspanda8989.chatgptcodereviewplugin.action.CodeReviewAction"
-                    text="添加代码评审注释" description="Adds selected code to CodeReview."/>
+                    text="添加代码评审注释" description="添加中文代码评审注释"/>
+        </group>
+        <group id="CodeOptimization" text="Code Optimize" description="CodeOptimize Group">
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+            <action id="Optimize Code..."
+                    class="com.github.cspanda8989.chatgptcodereviewplugin.action.CodeOptimizeActionEn"
+                    text="Optimize the code" description="Optimize the code"/>
+            <action id="优化代码"
+                    class="com.github.cspanda8989.chatgptcodereviewplugin.action.CodeOptimizeAction"
+                    text="优化代码" description="优化代码"/>
         </group>
     </actions>
 </idea-plugin>

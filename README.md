@@ -12,7 +12,7 @@ ChatGPTCodeReviewPlugin is an IDEA plugin integrated with chat-gpt3 model. It ca
 - Open idea editor
 - Open any code file
 - Select some code, and right click
-- Click "Add Code Review Comment"/"添加代码评审注释" menu
+- Click "Add Code Review Comment" menu
 - Wait for a while, then some comment will be added top of your selection
 
 Note: It need an OPEN_API_KEY, please set OPEN_API_KEY in your system environment variable.
