@@ -14,6 +14,7 @@ ChatGPTCodeReviewPlugin is an IDEA plugin integrated with chat-gpt3 model. It ca
 - Select some code, and right click
 - Click "Add Code Review Comment" menu
 - Wait for a while, then some comment will be added top of your selection
+- (Optional) If need to connect to OpenAI with proxy, please set env variables "LOCAL_PROXY_HOST" and "LOCAL_PROXY_PORT"
 
 Note: It need an OPEN_API_KEY, please set OPEN_API_KEY in your system environment variable.
 <!-- Plugin description end -->

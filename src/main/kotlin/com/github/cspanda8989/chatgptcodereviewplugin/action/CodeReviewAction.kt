@@ -1,6 +1,7 @@
 package com.github.cspanda8989.chatgptcodereviewplugin.action
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.github.cspanda8989.chatgptcodereviewplugin.component.ProxyHelper
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.command.WriteCommandAction
@@ -51,13 +52,8 @@ class CodeReviewAction : AnAction() {
                     var systemChatMessage = ChatMessage("system", PRESET_PROMPT_CODE_REVIEW_ZH)
                     var inputPromptMessage = ChatMessage("user", "审核：" + selectedText)
 
-
-                    val proxy = Proxy(Proxy.Type.HTTP, InetSocketAddress("127.0.0.1", 7890))
                     val mapper: ObjectMapper = defaultObjectMapper()
-                    val client: OkHttpClient = defaultClient(apiKey, Duration.ofMinutes(1))
-                        .newBuilder()
-                        .proxy(proxy)
-                        .build()
+                    val client: OkHttpClient = ProxyHelper.getOkHttpClient(apiKey)
                     val retrofit = defaultRetrofit(client, mapper)
 
                     val api: OpenAiApi = retrofit.create(OpenAiApi::class.java)

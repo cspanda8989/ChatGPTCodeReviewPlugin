@@ -1,7 +1,7 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
     <id>com.github.cspanda8989.chatgptcodereviewplugin</id>
-    <name>ChatGPTCodeReviewPlugin</name>
+    <name>ChatGPTCodeReviewBot</name>
     <vendor>cspanda8989</vendor>
 
     <depends>com.intellij.modules.platform</depends>
@@ -19,14 +19,14 @@
                     class="com.github.cspanda8989.chatgptcodereviewplugin.action.CodeReviewAction"
                     text="添加代码评审注释" description="添加中文代码评审注释"/>
         </group>
-        <group id="CodeOptimization" text="Code Optimize" description="CodeOptimize Group">
-            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
-            <action id="Optimize Code..."
-                    class="com.github.cspanda8989.chatgptcodereviewplugin.action.CodeOptimizeActionEn"
-                    text="Optimize the code" description="Optimize the code"/>
-            <action id="优化代码"
-                    class="com.github.cspanda8989.chatgptcodereviewplugin.action.CodeOptimizeAction"
-                    text="优化代码" description="优化代码"/>
-        </group>
+        <!--        <group id="CodeOptimization" text="Code Optimize" description="CodeOptimize Group">-->
+        <!--            <add-to-group group-id="EditorPopupMenu" anchor="last"/>-->
+        <!--            <action id="Optimize Code..."-->
+        <!--                    class="com.github.cspanda8989.chatgptcodereviewplugin.action.CodeOptimizeActionEn"-->
+        <!--                    text="Optimize the code" description="Optimize the code"/>-->
+        <!--            <action id="优化代码"-->
+        <!--                    class="com.github.cspanda8989.chatgptcodereviewplugin.action.CodeOptimizeAction"-->
+        <!--                    text="优化代码" description="优化代码"/>-->
+        <!--        </group>-->
     </actions>
 </idea-plugin>
